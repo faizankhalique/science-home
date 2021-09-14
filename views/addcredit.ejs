@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title><%= title %> </title>
+    <% include templates/headlinks %>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" href="customcss/toast2.css">
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <% include templates/topnavbar %>
+        <!-- End Top Navigation -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <% include templates/leftsidebar %>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title" style="font-size: 15px"><a href="#">Add-Credit</a></h4> </div>
+                    <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                        </ol>
+                    </div> -->
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCreditModal">
+                            Add Credit
+                          </button>
+                          <% include templates/addCreditModal %>
+                    </div>
+                </div>
+                <!-- row end -->
+                 <!-- /.row -->
+                 <div class="row">
+                  <div class="col-lg-12">
+                    <table
+                    id="clienttable"
+                    data-toggle="table"
+                    data-show-refresh="true"
+                    data-show-toggle="true"
+                    data-show-columns="true"
+                    data-search="true"
+                    data-select-item-name="toolbar1"
+                    data-pagination="true"
+                    data-sort-name="name"
+                    data-sort-order="desc"
+                    class="table-hover"
+                  >
+                    <thead class="thead-dark" style="background-color:black;">
+                      <tr>
+                        <th><b style="color: white">#</b></th>
+                        <th data-sortable="true"><b style="color: white">Name</b></th>
+                        <th data-sortable="true"><b style="color: white">UserName</b></th>
+                        <th data-sortable="true"><b style="color: white">ClientId</b></th>
+                        <th data-sortable="true"><b style="color: white">Dept</b></th>  
+                        <th data-sortable="true"><b style="color: white">Credit</b></th>
+                        <th data-sortable="true"><b style="color: white">Balance</b></th>
+                      </tr>
+                    </thead>
+                    <tbody style="background-color:white">
+                      <% let counter=1;%>
+                        <% clientPaymentRecords.map((clientPaymentRecord)=>{%>
+                      <tr style="color:black; font-size:medium">
+                        <td><%= counter++%></td>
+                        <% const un=clientPaymentRecord.clientName.split('['); const username= un[1].split(']'); %>
+                        <td class="text-oflo"><%= un[0]%></td>
+                        <td class="text-oflo"><%= username[0]%></td>
+                        <td class="text-oflo"><%= clientPaymentRecord.clientId%></td>
+                        <td class="text-alert"><%= clientPaymentRecord.debet.toFixed(2)%></td>
+                        <td class="text-alert"><%= clientPaymentRecord.credit.toFixed(2)%></td>
+                        <td class="text-alert"><%= clientPaymentRecord.balance.toFixed(2)%></td>
+                      </tr>
+                      <% });%>
+                    </tbody>
+                  </table>
+                  </div>
+              </div>
+              <!-- row end -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2019 &copy;<a href="https://nesl-it.com/"> <b>Nesl-it </b> </a></footer>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <% include templates/scripts %>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="customjs/jwt-decode.min.js"></script>
+    <script src="customjs/authService.js"></script>
+    <script src="customjs/toast2.js"></script>
+    <script>
+        
+        $(document).ready(function(){
+            try {
+               let paymentOption="";
+                const jwt=getJwt();
+                if(jwt){//check JWT 
+        $("#clientForm").submit(function() {
+                      const addcredit= { 
+                  //  userName:$("#userName").val(),
+                   clientId:$("#clientId option:selected").val(),
+                   clientName:$("#clientId option:selected" ).text(),
+                   challanId:$("#challanId").val(),
+                   checkNumber:$("#checkNumber").val(),
+                   Amount:$("#amount").val(),
+                   date:$("#Date").val(),
+                   
+                };//addcredit
+          
+            $.ajax({
+              global: false,
+              type: "post",
+              url: "/addcredit",
+              dataType: "json",
+              data: addcredit,
+              beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                showToast("credit Add successfully");
+              //  setTimeout(()=>{
+              //   window.location.href="http://localhost:3000/addcredit";
+              //  },1000);
+              },//end of success
+              error: function(xhr, status, error) {
+                 showToast(`Error: ${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+          
+          return false;
+        });//end of submit
+      }//end of check JWT
+      else{
+        window.location.href="http://localhost:3000/login";
+      }      
+            } // end of try
+            catch (error)
+             {
+                showToast(""+error);
+             }
+            
+        });
+      </script>
+      <script>
+           $(document).ready(function(){
+        $("input[type='radio']").click(function(){
+            var radioValue = $("input[name='paymentOptions']:checked").val();
+            if(radioValue==="cash"){
+                $("#checkNumberDiv").hide();
+                $("#deliveryChallanIdDiv").show();
+                $("#amountDiv").show();
+                $("#checkNumber").attr('required',false);
+            }
+            if(radioValue==="check"){
+
+              // alert()
+              $("#amountDiv").show();
+                $("#checkNumberDiv").show();
+                $("#deliveryChallanIdDiv").show();
+                $("#checkNumber").val("");
+                $("#checkNumber").attr('required',true);
+            }
+        });
+        
+    });
+    </script>
+    <script>
+        $(document).ready(()=>{
+            const user = getCurrentUser();
+        if (user) {
+          $("#user").text(user.fullname);
+          $("#logout").text("logout");
+          $("#logout").click(()=>{
+            logoutUser();
+            window.location.href="http://localhost:3000/login";
+          })
+        } else {
+          window.location.href="http://localhost:3000/login";
+        }
+        })
+      </script>
+</body>
+
+</html>

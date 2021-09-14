@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title><%= title %> </title>
+    <!-- <link rel="stylesheet" href="css/mycustom.css" /> -->
+    <% include templates/headlinks %>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" href="customcss/toast2.css">
+    <style type="text/css">
+      .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: rgb(0, 195, 255);
+         }
+      </style>
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <% include templates/topnavbar %>
+        <!-- End Top Navigation -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <% include templates/leftsidebar %>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title" style="font-size: 15px"><a href="#">Clients</a></h4> </div>
+                    <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                        </ol>
+                    </div> -->
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                  <div class="col-lg-12">
+                     <br/>
+                  </div>
+                </div>
+                <div class="row" >
+                  <div class="col-lg-12" >
+                    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ClientModal">
+    Add Client
+  </button>
+  <% include templates/clientModal %>
+                    <center> <h1 class="box-title">Client Data</h1></center>
+                    <div style="margin-left: -20px">
+                        <table
+                        id="clienttable"
+                        data-toggle="table"
+                        data-show-refresh="true"
+                        data-show-toggle="true"
+                        data-show-columns="true"
+                        data-search="true"
+                        data-select-item-name="toolbar1"
+                        data-pagination="true"
+                        data-sort-name="name"
+                        data-sort-order="desc"
+                        class="table-hover"
+                      >
+                        <thead class="thead-dark" style="background-color:black;">
+                          <tr>
+                            <th></th>
+                            <th style="color: white"><b style="color: white">ClientId</b></th>
+                            <th data-sortable="true"><b style="color: white">FirstName</b></th>
+                            <th data-sortable="true"><b style="color: white">LastName</b></th>
+                            <th data-sortable="true"><b style="color: white">Designation</b></th>
+                            <th data-sortable="true"><b style="color: white">Email</b></th>
+                            <th data-sortable="true"><b style="color: white">Gender</b></th>
+                            <th data-sortable="true"><b style="color: white">Department</b></th>
+                            <th data-sortable="true"><b style="color: white">Organization</b></th>
+                            <!-- <th data-sortable="true"><b style="color: white">Location</b></th> -->
+                            <th data-sortable="true"><b style="color: white">Address</b></th>
+                            <th data-sortable="true"><b style="color: white">PhoneNo</b></th>
+                            <th></th>
+                            
+                            <!-- <th></th>
+                            <th></th>
+                            <th></th> -->
+                          </tr>
+                        </thead>
+            
+                        <tbody style="background-color:white">
+                          <% clients.map((client)=>{%>
+                          <tr style="color:black; font-size:medium">
+                            <td class="text-oflo"><p style="visibility: hidden; width: 0px"><%= client._id%></p></td>
+                            <td class="text-alert"><%= client.clientId%></td>
+                            <td class="text-alert"><%= client.firstName%></td>
+                            <td class="text-alert"><%= client.lastName%></td>
+                            <td class="text-alert" style="width: 3%"><%= client.userName%></td>
+                            <td class="text-alert"><%= client.email%></td>
+                            <td class="text-alert"><%= client.gender%></td>
+                            <td class="text-alert"><%= client.departmentName%></td>
+                            <td class="text-alert"><%= client.organization%></td>
+                            <!-- <td class="text-alert"><%= client.location%></td> -->
+                            <td class="text-alert"><%= client.location%>/<%=client.address%></td>
+                            <td class="text-alert"><%= client.phoneNo%></td>
+                            <td>
+                                <div class="btn-group dropleft">
+                                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Action
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <!-- Dropdown menu links -->
+                            
+                            <button  class="btn btn-primary btn-xs dropdown-item" type="button" style="margin: 3px" onclick="handleUpdate('<%= client._id%>')">Update</button><br>
+                            <button  class="btn btn-danger btn-xs dropdown-item" type="button" style="margin: 3px">Remove</button><br>
+                                    </div>
+                                  </div>
+                            </td>
+                            <!-- <td class="text-alert">234</td>
+                            <td class="text-alert"><input type="number" style="width: 45px"/></td> -->
+                            <!-- <td class="text-alert"><button  class="btn btn-primary btn-xs" type="button">Add</button></td>
+                            <td class="text-alert"><button  class="btn btn-primary btn-xs" type="button">Update</button></td>
+                            <td class="text-alert"><button  class="btn btn-danger btn-xs" type="button">Remove</button></td> -->
+                          </tr>
+                          <% });%>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                        <!-- <form class="form-container card">
+                                <h3
+                                  style="margin-left: 270px;font-family:Arial, Helvetica, sans-serif"
+                                >
+                                  <b>Client Registration form</b>
+                                </h3>
+                                <div class="form-group">
+                                  <label for="username">Full Name</label>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="fullname"
+                                    name="fullname"
+                                    aria-describedby="Help"
+                                    placeholder="Full Name"
+                                    pattern="^[a-z A-Z]*$"
+                                    required
+                                  />
+                                </div>
+                                <div class="form-group">
+                                  <label for="username">User Name</label>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="username"
+                                    name="username"
+                                    aria-describedby="Help"
+                                    placeholder="user Name"
+                                    pattern="^[a-z A-Z]*$"
+                                    required
+                                  />
+                                </div>
+                                <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                                    required
+                                  />
+                                </div>
+                                <label for="" >Gender</label>
+                                <div style="padding:3px" class="form-check form-check-inline">
+                                    <label for="my-input" class="form-check-label">Male</label>
+                                    <input id="gender" class="form-check-input" type="radio" name="gender" value="male" checked>
+                                    <label style="margin-left:3px" for="my-input" class="form-check-label">Female</label>
+                                    <input id="gender" class="form-check-input" type="radio" name="gender" value="female">
+                                  </div>
+                                  <div style="margin-top: 3px" class="form-group">
+                                    <label for="departmentname">Department Name</label>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="departmentname"
+                                      name="departmentname"
+                                      placeholder="Department Name"
+                                      required
+                                    />
+                                  </div>
+                                  <div style="margin-top: 3px" class="form-group">
+                                      <label for="organization">Organization</label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="organization"
+                                        name="organization"
+                                        placeholder="Organization"
+                                        required
+                                      />
+                                    </div>
+                                    <div style="margin-top: 3px" class="form-group">
+                                      <label for="location">Location</label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="location"
+                                        name="location"
+                                        placeholder="Location"
+                                        required
+                                      />
+                                    </div>
+                                    <div style="margin-top: 3px" class="form-group">
+                                      <label for="address">Address</label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="address"
+                                        name="address"
+                                        placeholder="Address"
+                                        required
+                                      />
+                                    </div>
+                                    
+                                <div class="form-group">
+                                  <label for="phonenumber">Phone Number</label>
+                                  <input
+                                    type="tel"
+                                    class="form-control"
+                                    id="phonenumber"
+                                    name="phonenumber"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Phone Number"
+                                    data-validation="enter proper number"
+                                    pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}"
+                                    required
+                                  />
+                                  
+                                </div>
+                                <div style="margin-left:83%">
+                                    <button type="submit" class="btn btn-primary  ">
+                                      Save
+                                    </button>
+                                    <button style="margin: 4px" type="reset" class="btn btn-danger">
+                                      clear
+                                    </button>
+                                 </div>
+                              </form> -->
+                  </div>
+                </div>
+                <!-- row end -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2019 &copy;<a href="https://nesl-it.com/"> <b>Nesl-it </b></a></footer>
+            <div id="toast1" style="margin-top: 160px"></div> 
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <% include templates/scripts %>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="customjs/jwt-decode.min.js"></script>
+    <script src="customjs/authService.js"></script>
+    <script src="customjs/toast2.js"></script>
+   
+        
+          <script>
+                try {
+                    const jwt=getJwt();
+                    if(jwt){//check jwt
+                        $("#clientForm").submit(function() {
+                          const client= { 
+                       firstName:$("#firstName").val(),
+                       lastName:$("#lastName").val(),
+                       userName:$("#userName").val(),
+                       email:$("#email").val(),
+                       gender:$("#gender").val(),
+                       organization:$("#organization").val(),
+                       departmentName:$("#departmentName").val(),
+                       location:$("#location").val(),
+                       address:$("#address").val(),
+                       phoneNo:$("#phoneNo").val()};//client
+                $.ajax({
+                  global: false,
+                  type: "post",
+                  url: "/client",
+                  dataType: "json",
+                  data: client,
+                  beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+                  success: function(result) {
+                    showToast2("Client Add successfully");
+                  //  setTimeout(()=>{
+                  //   window.location.href="http://localhost:3000/client";
+                  //  },1000);
+                  },//end of success
+                  error: function(xhr, status, error) {
+                     showToast2(`Error: ${xhr.responseText}`);
+                    //  status: ${xhr.status} ${xhr.statusText}
+                     }//error
+                });//end of ajax
+              
+              return false;
+            });//end of submit
+          }//end of check JWT
+          else{
+            window.location.href="http://localhost:3000/login";
+          }      
+                } // end of try
+                catch (error)
+                 {
+                    showToast(""+error);
+                 }
+          </script>
+           <script>
+    function handleUpdate(id){
+      $("#updateClientModal").modal('show');
+      try {
+           const jwt =getJwt();
+           if(jwt){
+            $.ajax({
+              global: false,
+              type: "get",
+              url: "/client/"+id,
+              // dataType: "json",
+              // data:stock,
+             beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                //  alert(result.stock.productName);
+                      $("#updateFirstName").val(result.client.firstName),
+                      $("#updateLastName").val(result.client.lastName),
+                      $("#updateUserName").val(result.client.userName),
+                      $("#updateQuantity").val(result),
+                      $("#updateEmail").val(result.client.email),
+                      $("#updateGender").val(result.client.gender),
+                      $("#updateDepartmentName").val(result.client.departmentName),
+                      $("#updateOrganization").val(result.client.organization),
+                      $("#updateLocation").val(result.client.location)
+                     $("#updateAddress").val(result.client.address);
+                     $("#updatePhoneNo").val(result.client.phoneNo);
+                     $("#clientId").val(result.client._id);
+              },//end of success
+              error: function(xhr, status, error) {
+                 alert(`Error: ${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+           }//end of check jwt
+           else{
+            window.location.href="http://localhost:3000/login"; 
+           }
+            
+            } // end of try
+            catch (error)
+             {
+                alert(""+error);
+             } 
+      }
+          </script>
+          <script>
+              try {
+                 const jwt=getJwt();
+               if(jwt){//check JWT
+                    $("#updateClientForm").submit(function() {
+                      const client= { 
+                       firstName:$("#updateFirstName").val(),
+                       lastName:$("#updateLastName").val(),
+                       userName:$("#updateUserName").val(),
+                       email:$("#updateEmail").val(),
+                       gender:$("#updateGender").val(),
+                       organization:$("#updateOrganization").val(),
+                       departmentName:$("#updateDepartmentName").val(),
+                       location:$("#updateLocation").val(),
+                       address:$("#updateAddress").val(),
+                       phoneNo:$("#updatePhoneNo").val()};//clent
+                      const id=$("#clientId").val();
+            $.ajax({
+              global: false,
+              type: "put",
+              url: "/client/"+id,
+              dataType: "json",
+              data:client,
+               beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                // alert("Update Stock successfully");
+                showToast("Client Update successfully");
+               setTimeout(()=>{
+                window.location.href="http://localhost:3000/client";
+               },500);
+              },//end of success
+              error: function(xhr, status, error) {
+                 showToast(`Error: ${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+          
+          return false;
+        });//end of submit
+       }//end of check JWT
+       else{
+       window.location.href="http://localhost:3000/login";
+       }      
+            } // end of try
+            catch (error)
+             {
+                alert(""+error);
+             }
+          </script>
+           <script>
+              $("#clienttable tbody").on("click",".btn-danger",function(){     
+                     // $(this).closest('tr').remove();
+                     var currow=$(this).closest('tr');
+                     var id=currow.find('td:eq(0)').text();
+                     var userName=currow.find('td:eq(4)').text();
+                     const conf=confirm(`Do you want to Delete ${userName}?`)
+                     if(conf===true){
+                       try {
+                       const jwt =getJwt();
+                       if(jwt){
+                        $.ajax({
+                       global: false,
+                       type: "delete",
+                       url: "/client/"+id,
+                       beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+                       success: function(result) {
+                       currow.closest('tr').remove();
+                       showToast1(`${result.m}`);    
+                       },//end of success
+                       error: function(xhr, status, error) {
+                         // alert(`Error: ${xhr.responseText}`)
+                          showToast1(`Error: ${xhr.responseText}`);
+                         //  status: ${xhr.status} ${xhr.statusText}
+                          }//error
+                     });//end of ajax
+                       }//end of check jwt
+                       else{
+                        window.location.href="http://localhost:3000/login";
+                       }
+                     
+                     } // end of try
+                     catch (error)
+                      {
+                         showToast(""+error);
+                      } 
+                     }
+                    
+                       });
+              
+         
+           </script>
+           <script>
+              $(document).ready(()=>{
+                   user = getCurrentUser();
+              if (user) {
+                $("#user").text(user.fullname);
+                $("#logout").text("logout");
+                $("#logout").click(()=>{
+                  logoutUser();
+                  window.location.href="http://localhost:3000/login";
+                })
+              } else {
+                window.location.href="http://localhost:3000/login";
+              }
+              })
+            </script>
+           
+</body>
+
+</html>

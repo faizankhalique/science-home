@@ -1,0 +1,7 @@
+{
+  "name": "Science Home",
+  "port": 3000,
+  "DataBase_Name": "biocruz",
+  "jwtPrivateKey": "12345",
+  "authorization": true
+}

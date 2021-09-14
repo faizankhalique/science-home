@@ -1,0 +1,567 @@
+<!-- Modal -->
+<!-- <div
+  class="modal fade"
+  id="stockModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myExtraLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl" role="document">
+ 
+  </div>
+</div> -->
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          onclick="window.location.href=`http://localhost:3000/stock`"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="modal-title" id="exampleModalLabel">
+          <center><b>Stock Form</b></center>
+        </h2>
+      </div>
+      <div class="modal-body">
+        <!-- <form class="form-container">
+          <div class="form-group">
+            <label for="productname">Product Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="productname"
+              name="productname"
+              aria-describedby="emailHelp"
+              placeholder="Product Name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="catnumber">Cat Number</label>
+            <input
+              type="number"
+              class="form-control"
+              id="catnumber"
+              name="catnumber"
+              placeholder="Cat Number"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="brand">Brand</label>
+            <input
+              type="text"
+              class="form-control"
+              id="brand"
+              name="brand"
+              aria-describedby="emailHelp"
+              placeholder="Brand"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="company">company</label>
+            <input
+              type="text"
+              class="form-control"
+              id="company"
+              name="company"
+              aria-describedby="emailHelp"
+              placeholder="company"
+              required
+            />
+          </div>
+          <div style="padding:3px" class="form-check form-check-inline">
+            <label for="unit" class="form-check-label">Unit</label>
+            <input
+              id="unit"
+              class="form-check-input"
+              type="number"
+              name="unit"
+            />
+            <label
+              style="margin-left:20px"
+              for="quantity"
+              class="form-check-label"
+              >Quantity</label
+            >
+            <input
+              id="quantity"
+              class="quantity"
+              type="number"
+              name="quantity"
+            />
+          </div>
+          <div class="form-group" style="margin-top:15px">
+            <label for="expirydate">Expiry Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="expirydate"
+              name="expirydate"
+              placeholder="Expiry Date"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="suppliername">Supplier Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="suppliername"
+              name="suppliername"
+              aria-describedby="emailHelp"
+              placeholder="Supplier Name"
+              pattern="^[a-z A-Z]*$"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="type">Type</label>
+            <input
+              type="text"
+              class="form-control"
+              id="type"
+              name="type"
+              placeholder="Type"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="purchaseprice">Purchase Price</label>
+            <input
+              type="number"
+              class="form-control"
+              name="purchaseprice"
+              id="purchaseprice"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+              required
+            />
+          </div>
+
+          <div style="margin-left:75%">
+            <button type="submit" class="btn btn-primary  ">
+              Save
+            </button>
+            <button style="margin: 4px" type="reset" class="btn btn-danger">
+              clear
+            </button>
+          </div>
+        </form> -->
+        <form id="stockForm">
+          <div class="form-row">
+            <div class="col-md-3 mb-3">
+              <label for="productName">Product Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="productName"
+                name="productName"
+                aria-describedby="emailHelp"
+                placeholder="Product Name"
+                required
+              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="caseNumber">Case Number</label>
+              <input
+                type="text"
+                class="form-control"
+                id="caseNumber"
+                name="caseNumber"
+                placeholder="Case Number"
+                required
+              />
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="brand">Brand</label>
+              <input
+                type="text"
+                class="form-control"
+                id="brand"
+                name="brand"
+                aria-describedby="emailHelp"
+                placeholder="Brand"
+              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="type">Type</label>
+              <input
+                type="text"
+                class="form-control"
+                id="type"
+                name="type"
+                placeholder="Type"
+              />
+            </div>
+          </div>
+          <!-- ---------- -->
+          <div class="form-row">
+            
+            <div class="col-md-3 mb-3">
+              <label for="unit">Unit</label><br />
+              <input
+                type="text"
+                class="form-control"
+                id="unit"
+                name="unit"
+                aria-describedby="emailHelp"
+                placeholder="Unit"
+                required
+              />
+              <!-- <select
+                class="form-control"
+                name="unitSign"
+                id="unitSign"
+                required
+                style="width: 80px; display: inline"
+              >
+                <option value="">Select</option>
+
+                <option value="mg">Milligram (mg)</option>
+                <option value="kg">Kilogram (kg)</option>
+                <option value="g">Gram (g)</option>
+                <option value="gr">Grain (gr)</option>
+                <option value="t">MetricTon (t)</option>
+              </select> -->
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="unit">Quantity</label>
+              <input
+                type="number"
+                class="form-control"
+                min="1"
+                id="quantity"
+                name="quantity"
+                aria-describedby="emailHelp"
+                placeholder="Quantity"
+                title="Quantity should be greater than 1"
+                required
+              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="expiryDate">Expiry Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="expiryDate"
+                name="expiryDate"
+                placeholder="Expiry Date"
+              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <!-- <label for="vendorName">VendorName</label>
+              <input
+                type="text"
+                class="form-control"
+                id="vendorName"
+                name="vendorName"
+                aria-describedby="emailHelp"
+                placeholder="VendorName"
+                title="Vendor Name should be alphabet characters"
+                pattern="^[a-z A-Z]*$"
+                required
+              /> -->
+              <label for="vendorName">Select Vendor</label>
+              <select
+                class="form-control"
+                name="vendorName"
+                id="vendorName"
+                required
+              >
+                <option value="">Select</option>
+                <% vendors.map((vendor)=>{%>
+                <option value="<%= vendor.userName%>"
+                  ><%= vendor.firstName%> <%= vendor.lastName%> [<%=
+                  vendor.userName%>]</option
+                >
+                <% });%>
+              </select>
+            </div>
+          </div>
+          <!-- ---------- -->
+
+          <div class="form-row">
+            <div class="col-md-3 mb-3">
+              <label for="purchasePrice">Purchase Price</label>
+              <input
+                type="number"
+                class="form-control"
+                id="purchasePrice"
+                min="0"
+                name="purchasePrice"
+                aria-describedby="emailHelp"
+                placeholder="Purchase Price"
+                title="Quantity should be greater than 1"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-3 mb-3">
+              <label for="catNumber">Cat Number</label>
+              <input
+                type="text"
+                class="form-control"
+                id="catNumber"
+                name="catNumber"
+                placeholder="Cat Number"
+              />
+            </div>
+            <div class="col-md-3 mb-3" style="visibility: hidden">
+              <label for="sdf">dsfsdsfasfdsfdsfsa</label>
+            </div>
+            <div class="col-md-3 mb-3" style="visibility: hidden">
+              <label for="caseNumsdber">Casdsadsa</label>
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                id="fsdf"
+                name="fsdr"
+                placeholder="sdf"
+              />
+            </div>
+            
+          </div>
+          <div class="form-row">
+            <div style="margin-left:80%; margin-top: 5px">
+              <button type="submit" class="btn btn-primary  ">
+                Save
+              </button>
+              <button style="margin: 4px" type="reset" class="btn btn-danger">
+                clear
+              </button>
+            </div>
+          </div>
+        </form>
+        <div id="toast2" style="margin-top: 100px"></div>
+      </div>
+      <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+    </div>
+    </div>
+  </div>
+<!-- --------------------------Update stock Modal---------------------------- -->
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="updateStockModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="modal-title" id="exampleModalLabel">
+          <center><b>Update Stock</b></center>
+        </h2>
+      </div>
+      <div class="modal-body">
+        <input
+          type="text"
+          id="stockId"
+          style="visibility: hidden; padding: 0px;"
+        />
+        <form id="updateStockForm">
+          <div class="form-row">
+            <div class="col-md-3 mb-3">
+              <label for="updateProductName">Product Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateProductName"
+                name="productName"
+                aria-describedby="emailHelp"
+                placeholder="Product Name"
+                required
+                readonly
+              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="updateCaseNumber">Case Number</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateCaseNumber"
+                name="caseNumber"
+                placeholder="Case Number"
+                required
+                readonly
+              />
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="updateBrand">Brand</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateBrand"
+                name="updateBrand"
+                aria-describedby="emailHelp"
+                placeholder="Brand"
+              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="updateType">Type</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateType"
+                min="0"
+                name="type"
+                placeholder="Type"
+              />
+            </div>
+          </div>
+          <!-- ---------- -->
+          <div class="form-row">
+           
+              <div class="col-md-3 mb-3">
+              <label for="updateUnit">Unit</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateUnit"
+                name="unit"
+                aria-describedby="emailHelp"
+                placeholder="Unit"
+                required
+                readonly
+              />
+            </div>
+            
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="updateQuantity">Quantity</label>
+              <input
+                type="number"
+                class="form-control"
+                id="updateQuantity"
+                name="quantity"
+                min="1"
+                aria-describedby="emailHelp"
+                placeholder="Quantity"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-3 mb-3">
+              <label for="updateExpiryDate">Expiry Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="updateExpiryDate"
+                name="expiryDate"
+                placeholder="Expiry Date"
+              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="updateVendorName">Select Vendor</label>
+              <select
+                class="form-control"
+                name="vendorName"
+                id="updateVendorName"
+                required
+              >
+                <option value="">Select</option>
+                <% vendors.map((vendor)=>{%>
+                <option value="<%= vendor.userName%>"
+                  ><%= vendor.firstName%> <%= vendor.lastName%> [<%=
+                  vendor.userName%>]</option
+                >
+                <% });%>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-3 mb-3" >
+              <label for="updatePurchasePrice" style="margin-left: 12px">Purchase Price</label>
+              <input
+               style="margin-left: 12px"
+                type="number"
+                class="form-control"
+                id="updatePurchasePrice"
+                min="1"
+                name="purchasePrice"
+                aria-describedby="emailHelp"
+                placeholder="Purchase Price"
+                required
+              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="updateCatNumber">Cat Number</label>
+              <input
+                type="text"
+                min="0"
+                class="form-control"
+                id="updateCatNumber"
+                name="catNumber"
+                placeholder="Cat Number"
+              />
+            </div>
+            <div class="col-md-3 mb-3" style="visibility: hidden">
+              <label for="sdf1">dsfs1d</label>
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                id="cfdsfs11"
+                name="sdfdsf11"
+                placeholder="sd1fdsf"
+              />
+            </div>
+            <div class="col-md-3 mb-3" style="visibility: hidden">
+              <label for="caseNwwumsdber">Cw</label>
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                id="fsdwf"
+                name="fswwdr"
+                placeholder="sdwwf"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div style="margin-left:75%; margin-top: 5px">
+              <button type="submit" class="btn btn-primary  ">
+                Save
+              </button>
+              <button style="margin: 4px" type="reset" class="btn btn-danger">
+                clear
+              </button>
+            </div>
+          </div>
+        </form>
+        <div id="toast" style="margin-top: 100px"></div>
+      </div>
+      <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+    </div>
+  </div>
+</div>

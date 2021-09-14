@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title><%= title%></title>
+    <% include templates/headlinks %>
+    <link rel="stylesheet" href="customcss/customtoast.css">
+    <!-- <link rel="stylesheet" href="customcss/simple-sidebar.css"> -->
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <% include templates/topnavbar %>
+        <!-- End Top Navigation -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <% include templates/leftsidebar %>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+       
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title" style="font-size: 15px"><a href="#">Index</a></h4> </div>
+                    <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                       
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                        </ol>
+                    </div> -->
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <!-- ============================================================== -->
+                <!-- Different data widgets -->
+                <!-- ============================================================== -->
+                <!-- .row -->
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Monthly Revenue</h3>
+                            <ul class="list-inline two-part">
+                                <li>
+                                    <div id="sparklinedash"></div>
+                                </li>
+                                <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><%= monthlyRevenu%></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Total Clients</h3>
+                            <ul class="list-inline two-part">
+                                <li>
+                                    <div id="sparklinedash2"></div>
+                                </li>
+                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= totalClients%></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Daily Generated Bills</h3>
+                            <ul class="list-inline two-part">
+                                <li>
+                                    <div id="sparklinedash3"></div>
+                                </li>
+                                <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info"><%= totalDeliveryBills%></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--/.row -->
+                <!--row -->
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                                <select class="form-control pull-right row b-none" id="myselect" onchange="getYear(this)">
+                                    <option ><%= new Date().getFullYear()%></option>
+                                   <% for(index=1;index<=10; index++){ %>
+                                    <option><%= new Date().getFullYear()-index%></option>
+                                   <% }%>
+                                </select>
+                            </div>
+                            <canvas id="myChart" width="400" height="400" ></canvas>
+                        <!-- <div class="white-box">
+                            <h3 class="box-title">Products Yearly Sales</h3>
+                            <ul class="list-inline text-right">
+                                <li>
+                                    <h5><i class="fa fa-circle m-r-5 text-info"></i>Mac</h5> </li>
+                                <li>
+                                    <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Windows</h5> </li>
+                            </ul>
+                            <div id="ct-visits" style="height: 405px;"></div>
+                        </div> -->
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- table -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <!-- <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                                <select class="form-control pull-right row b-none">
+                                    <option>March 2017</option>
+                                    <option>April 2017</option>
+                                    <option>May 2017</option>
+                                    <option>June 2017</option>
+                                    <option>July 2017</option>
+                                </select>
+                            </div> -->
+                            <h3 class="box-title">Most sold Products</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>PRODUCTNAME</th>
+                                            <th>COMPANY</th>
+                                            <th>TYPE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% products.map((product)=>{%>
+                                            <tr>
+
+                                                <td class="txt-oflo"><%= product.productName%></td>
+                                                <td><%= product.brand%></td>
+                                                <td class="txt-oflo"><%= product.type%></td>
+                                            </tr>
+                                            <% })%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- chat-listing & recent comments -->
+                <!-- ============================================================== -->
+                
+            </div>
+           
+        </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2019 &copy;<a href="https://nesl-it.com/"> <b>Nesl-it </b></a></footer>
+            <div id="toast">
+                <!-- <div id="img">Icon</div> -->
+                <div id="desc">Wellcome to Admin Pannel ..</div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <% include templates/scripts %>
+    <script src="customjs/customtoast.js"></script>
+    <script src="customjs/jwt-decode.min.js"></script>
+    <script src="customjs/authService.js"></script>
+    <script src="customjs/Chart.min.js"></script>
+    <script>
+        $(document).ready(()=>{
+           try {
+           const jwt=getJwt();
+           if(jwt){
+            $.ajax({
+              global: false,
+              type: "post",
+              url: "/getallprofit",
+            //   dataType: "json",
+            //   data:client,
+              beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                //   alert(`${result.allMonthProfit[6].profit}`);
+                 
+                  var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    // labels: ['Jan', 'Feb', 'Mar', 'Apr','May','Jun','Jul','Aug','Sep','Nov','Oct',"Dec"],
+                    labels:result.labels,
+                    datasets: [{
+                        label: '#profit',
+                        // data: [1, 2, 3, 4,5,6,7,8,9,10,11,12],
+                        data:result.monthProfit,
+                        backgroundColor: [
+                            'rgba(255, 60, 132, 0.2)',
+                            'rgba(54, 108, 233, 0.2)',
+                            'rgba(255, 123, 86, 0.2)',
+                            'rgba(75, 188, 219, 0.2)',
+                            'rgba(153, 40, 255, 0.2)',
+                            'rgba(255, 88, 64, 0.2)',
+                            'rgba(255, 13, 148, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 13, 132, 0.2)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options:
+                 {
+                    scales: {
+                        xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+                stacked: true
+            }],
+        yAxes: [{
+            barPercentage: 1,
+            // barThickness: 6,
+            // maxBarThickness: 8,
+            categoryPercentage:4,
+            maxBarLength: "1px",
+            ticks: {
+                    beginAtZero: true
+                 },
+            gridLines: {
+                offsetGridLines: false
+            }
+            
+        }]
+    },
+                    // scales: {
+                        // yAxes: [{
+                            // ticks: {
+                            //     beginAtZero: true
+                            // },
+                        //     // maxBarLength: 40,
+                        // }]
+                    // }
+                }
+            });
+                
+              },//end of success
+              error: function(xhr, status, error) {
+                 alert(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+           }
+           else{
+            window.location.href="http://localhost:3000/login";
+           }
+                 
+           } catch (error) {
+               alert(error+"");
+           }
+           })
+    </script>
+    <script>
+        function getYear(obj) {
+            const year={year:obj.value};
+            try {
+              const jwt= getJwt();
+              if(jwt){
+                $.ajax({
+              global: false,
+              type: "post",
+              url: "/getallprofit",
+               dataType: "json",
+               data:year,
+               beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                //   alert(`${result.allMonthProfit[6].profit}`);
+                 
+                  var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    // labels: ['Jan', 'Feb', 'Mar', 'Apr','May','Jun','Jul','Aug','Sep','Nov','Oct',"Dec"],
+                    labels:result.labels,
+                    datasets: [{
+                        label: '# profit',
+                        // data: [1, 2, 3, 4,5,6,7,8,9,10,11,12],
+                        data:result.monthProfit,
+                        backgroundColor: [
+                           'rgba(255, 60, 132, 0.2)',
+                            'rgba(54, 108, 233, 0.2)',
+                            'rgba(255, 123, 86, 0.2)',
+                            'rgba(75, 188, 219, 0.2)',
+                            'rgba(153, 40, 255, 0.2)',
+                            'rgba(255, 88, 64, 0.2)',
+                            'rgba(255, 13, 148, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 199, 132, 0.2)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+                stacked: true
+            }],
+        yAxes: [{
+            barPercentage: 1,
+            // barThickness: 6,
+            // maxBarThickness: 8,
+            categoryPercentage:4,
+            maxBarLength: 1,
+            ticks: {
+                                beginAtZero: true
+                            },
+            gridLines: {
+                offsetGridLines: false
+            }
+            
+        }]
+    },
+                    // scales: {
+                    //     yAxes: [{
+                    //         ticks: {
+                    //             beginAtZero: true
+                    //         }
+                    //     }]
+                    // }
+                }
+            });
+                
+              },//end of success
+              error: function(xhr, status, error) {
+                 alert(`Error: ${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+              }
+              else{
+                window.location.href="http://localhost:3000/login";
+              }
+
+            } catch (error) {
+                alert(error+"");
+            }
+        }
+    </script>
+    <script>
+            $(document).ready(()=>{
+                const user = getCurrentUser();
+            if (user) {
+              $("#user").text(user.fullname);
+              $("#logout").text("logout");
+              $("#logout").click(()=>{
+                logoutUser();
+                window.location.href="http://localhost:3000/login";
+              })
+            } else {
+                 window.location.href="http://localhost:3000/login";
+            }
+            launch_toast();
+            })
+          </script>
+
+</body>
+
+</html>

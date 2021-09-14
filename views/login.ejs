@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <style>
+          #loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 60px;
+            height: 60px;
+            margin-left: 170px;
+            animation: spin 2s linear infinite;
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          </style>
+    <title><%= title %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--===============================================================================================-->
+    <link
+      rel="icon"
+      type="image/png"
+      href="plugins/Login_v18/images/icons/favicon.ico"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/vendor/bootstrap/css/bootstrap.min.css"
+    />
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/vendor/animate/animate.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/vendor/css-hamburgers/hamburgers.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/vendor/animsition/css/animsition.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/vendor/select2/select2.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/vendor/daterangepicker/daterangepicker.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/css/util.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="plugins/Login_v18/css/main.css"
+    />
+    
+    <link rel="stylesheet" href="customcss/toast2.css">
+    <!--===============================================================================================-->
+  </head>
+  <body style="background-color: #666666;">
+     
+    <div class="limiter">
+      <div class="container-login100">
+        <div class="wrap-login100">
+          <form id="login" class="login100-form validate-form">
+            <span class="login100-form-title p-b-43">
+              Login
+            </span>
+            <div id="loader" style="visibility: hidden"></div>
+            <div
+              class="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input class="input100" type="email" name="email" id="email" title="someone@example.com" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required />
+              <span class="focus-input100"></span>
+              <span class="label-input100">Email</span>
+            </div>
+
+            <div
+              class="wrap-input100 validate-input"
+              data-validate="Password is required"
+            >
+              <input
+                class="input100"
+                type="password"
+                name="password"
+                id="password"
+                required
+              />
+              <span class="focus-input100"></span>
+              <span class="label-input100">Password</span>
+            </div>
+
+            <div class="flex-sb-m w-full p-t-3 p-b-32">
+              <div class="contact100-form-checkbox">
+                <!-- <input
+                  class="input-checkbox100"
+                  id="ckb1"
+                  type="checkbox"
+                  name="remember-me"
+                />
+                <label class="label-checkbox100" for="ckb1">
+                  Remember me
+                </label> -->
+              </div>
+             
+              <div>
+                <a href="#" class="txt1" 
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#forgotpassword"
+                data-whatever="@mdo">
+                 <strong> Forgot Password?</strong>
+                </a>
+              </div>
+            </div>
+
+            <div class="container-login100-form-btn">
+              <button class="login100-form-btn">
+                Login
+              </button>
+            </div>
+
+            <div class="text-center p-t-46 p-b-20">
+              <span class="txt2">
+              <a href="/signup"> <strong>or sign up using</strong></a>
+              </span>
+            </div>
+          </form>
+
+          <div
+            class="login100-more"
+            style="background-image: url('plugins/Login_v18/images/bg-01.jpg');"
+          ></div>
+        </div>
+      </div>
+      <!-- <button onclick="">Show Toast</button> -->
+       <!-- <div id="spinner" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div> -->
+      
+      <div id="toast" style="margin-top: 50px"></div>
+     
+                          </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="plugins/Login_v18/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="plugins/Login_v18/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="plugins/Login_v18/vendor/bootstrap/js/popper.js"></script>
+    <script src="plugins/Login_v18/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="plugins/Login_v18/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="plugins/Login_v18/vendor/daterangepicker/moment.min.js"></script>
+    <script src="plugins/Login_v18/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="plugins/Login_v18/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="plugins/Login_v18/js/main.js"></script>
+    <script src="customjs/jwt-decode.min.js"></script>
+    <script src="customjs/authService.js"></script>
+    <script src="customjs/toast2.js"></script>
+    <script>
+      $("#login").submit(function() {
+        //event.preventDefault();
+
+        const email = $("#email").val();
+        const password = $("#password").val();
+
+        if (email && password) {
+          $.ajax({
+            global: false,
+            type: "post",
+            url: "/login",
+            dataType: "json",
+            data: {
+              email: email,
+              password: password
+            },
+            beforeSend:function(){
+             
+              document.getElementById("loader").style.visibility='visible';
+        
+            },
+            success: function(result) {
+              showToast("Login successfully");
+              loginWithJwt(result.token);
+              const user = getCurrentUser();
+              setTimeout(()=>{
+                window.location.href = "http://localhost:3000";
+              },200)
+            },
+            error: function(xhr, status, error) {
+              document.getElementById("loader").style.visibility = "hidden";
+              showToast(`Error: ${xhr.responseText}`);
+             // alert();
+            //  status: ${xhr.status} ${xhr.statusText}
+            }
+          });
+        } else {
+          // if (!email) alert("Please enter Email");
+          // if (!password) alert("Please enter password");
+        }
+        return false;
+      });
+    </script>
+    <script>
+     $(document).ready(()=>{
+      try {
+        $("#forgotPassForm").submit(function() {
+        const data = {email:$("#forgotEmail").val()}
+          $.ajax({
+            global: false,
+            type: "post",
+            url: "/forgotpassword",
+            dataType: "json",
+            data: data,
+           
+            success: function(result) {
+              showToast2(`${result.m}`);
+              setTimeout(()=>{
+                window.location.href = "http://localhost:3000/login";
+              },2000)
+            },
+            error: function(xhr, status, error) {
+              showToast2(`Error: ${xhr.responseText}`);
+             
+            }
+          });
+        
+        return false;
+      });
+      } catch (error) {
+        alert(error);
+      }
+     })
+     </script>
+     <% include templates/forgotPassModal %>
+  </body>
+</html>
