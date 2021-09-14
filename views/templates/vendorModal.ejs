@@ -1,0 +1,375 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="vendorModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          onclick="window.location.href=`http://localhost:3000/vendor`"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="modal-title" id="exampleModalLabel">
+          <center><b> Vendor Registration Form</b></center>
+        </h2>
+      </div>
+      <div class="modal-body">
+        <form id="vendorForm">
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                name="firstName"
+                aria-describedby="Help"
+                title="First Name should be alphabet characters"
+                placeholder="First Name"
+                pattern="^[a-z A-Z]*$"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="lastName">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                name="lastName"
+                aria-describedby="Help"
+                placeholder="Last Name"
+                title="Last Name should be alphabet characters"
+                pattern="^[a-z A-Z]*$"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="userName">User Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userName"
+                name="userName"
+                aria-describedby="Help"
+                placeholder="User Name"
+                pattern="[a-zA-Z_][a-zA-Z0-9_]*"
+                title="User name start with alphabet characters and not take any space"
+                required
+              />
+            </div>
+          </div>
+          <!-- ---------- -->
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                title="someone@example.com"
+                placeholder="someone@example.com"
+                pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="">Gender</label>
+              <div style="padding:3px" class="form-check form-check-inline">
+                <label for="my-input" class="form-check-label">Male</label>
+                <input
+                  id="gender"
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  checked
+                />
+                <label
+                  style="margin-left:3px"
+                  for="my-input"
+                  class="form-check-label"
+                  >Female</label
+                >
+                <input
+                  id="gender"
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  value="female"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="location">Location</label>
+              <input
+                type="text"
+                class="form-control"
+                id="location"
+                name="location"
+                placeholder="Location"
+                required
+              />
+            </div>
+          </div>
+          <!-- ---------- -->
+
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="address">Address</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                placeholder="Address"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="phoneNo">Phone Number</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phoneNo"
+                name="phoneNo"
+                aria-describedby="emailHelp"
+                placeholder="0307-5462469"
+                title="0300-5462969"
+                pattern="03[0-9]{2}-[0-9]{7}"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3" style="visibility: hidden">
+              <label for="addss">Aess</label>
+              <input
+                type="text"
+                class="form-control"
+                id="aess"
+                name="adss"
+                placeholder="Aress"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div style="margin-left:75%;margin-top: 5px">
+              <button type="submit" class="btn btn-primary  ">
+                Save
+              </button>
+              <button style="margin: 4px" type="reset" class="btn btn-danger">
+                clear
+              </button>
+            </div>
+          </div>
+          <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
+        </form>
+        <div id="toast2" style="margin-top: 100px"></div>
+      </div>
+      <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+    </div>
+  </div>
+</div>
+<!-- -------------------------------------------------------------------- -->
+<!-- Update Modal -->
+<div
+  class="modal fade"
+  id="updateVendorModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="modal-title" id="exampleModalLabel">
+          <center><b>Update Vendor</b></center>
+        </h2>
+      </div>
+      <div class="modal-body">
+        <form id="updateVendorForm">
+          <input
+            type="text"
+            id="vendorId"
+            style="visibility: hidden; padding: 0px;"
+          />
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="updateFirstName">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateFirstName"
+                name="updateFirstName"
+                aria-describedby="Help"
+                title="First Name should be alphabet characters"
+                placeholder="First Name"
+                pattern="^[a-z A-Z]*$"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="updateLastName">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateLastName"
+                name="updateLastName"
+                aria-describedby="Help"
+                title="Last Name should be alphabet characters"
+                placeholder="Last Name"
+                pattern="^[a-z A-Z]*$"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="updateUserName">User Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateUserName"
+                name="updateUserName"
+                aria-describedby="Help"
+                placeholder="User Name"
+                pattern="[a-zA-Z_][a-zA-Z0-9_]*"
+                title="User name start with alphabet characters and not take any space"
+                required
+              />
+            </div>
+          </div>
+          <!-- ---------- -->
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="updateEmail">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="updateEmail"
+                name="updateEmail"
+                title="someone@example.com"
+                placeholder="someone@example.com"
+                pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="">Gender</label>
+              <div style="padding:3px" class="form-check form-check-inline">
+                <label for="my-input" class="form-check-label">Male</label>
+                <input
+                  id="updateGender"
+                  class="form-check-input"
+                  type="radio"
+                  name="updateGender"
+                  value="male"
+                  checked
+                />
+                <label
+                  style="margin-left:3px"
+                  for="my-input"
+                  class="form-check-label"
+                  >Female</label
+                >
+                <input
+                  id="updateGender"
+                  class="form-check-input"
+                  type="radio"
+                  name="updateGender"
+                  value="female"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="updateLocation">Location</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateLocation"
+                name="updateLocation"
+                placeholder="Location"
+                required
+              />
+            </div>
+          </div>
+          <!-- ---------- -->
+
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="updateAddress">Address</label>
+              <input
+                type="text"
+                class="form-control"
+                id="updateAddress"
+                name="updateAddress"
+                placeholder="Address"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="updatePhoneNo">Phone Number</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="updatePhoneNo"
+                name="updatePhoneNo"
+                aria-describedby="emailHelp"
+                placeholder="0307-5462469"
+                title="0300-5462969"
+                pattern="03[0-9]{2}-[0-9]{7}"
+                required
+              />
+            </div>
+            <div class="col-md-4 mb-3" style="visibility: hidden">
+              <label for="updatress">sfdsf</label>
+              <input
+                type="text"
+                class="form-control"
+                id="upddress"
+                name="updddress"
+                placeholder="Address"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div style="margin-left:75%;margin-top: 5px">
+              <button type="submit" class="btn btn-primary  ">
+                Save
+              </button>
+              <button style="margin: 4px" type="reset" class="btn btn-danger">
+                clear
+              </button>
+            </div>
+          </div>
+          <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
+        </form>
+        <div id="toast" style="margin-top: 100px"></div>
+      </div>
+      <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+    </div>
+  </div>
+</div>

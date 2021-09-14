@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title><%= title %></title>
+    <% include templates/headlinks %>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" href="customcss/toast2.css">
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <% include templates/topnavbar %>
+        <!-- End Top Navigation -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <% include templates/leftsidebar %>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h4 class="page-title" style="font-size: 15px"><a href="#">Delivery/Invoice</a></h4> </div>
+                    <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                        </ol>
+                    </div> -->
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                        <center> <h1 class="box-title">Delivery Challan</h1></center>
+                    <div class="col-lg-12">
+                            <table
+                            id="clienttable"
+                            data-toggle="table"
+                            data-show-refresh="true"
+                            data-show-toggle="true"
+                            data-show-columns="true"
+                            data-search="true"
+                            data-select-item-name="toolbar1"
+                            data-pagination="true"
+                            data-sort-name="name"
+                            data-sort-order="desc"
+                            class="table-hover"
+                          >
+                            <thead class="thead-dark" style="background-color:black;">
+                              <tr>
+                                <th><b style="color: white">#</b></th>
+                                <th data-sortable="true"><b style="color: white">ClientId</b></th>
+                                <th data-sortable="true"><b style="color: white">Name</b></th>
+                                <th data-sortable="true"><b style="color: white">UserName</b></th>
+                                <th data-sortable="true"><b style="color: white">Total</b></th>
+                                <th data-sortable="true"><b style="color: white">Bill</b></th>
+                                <th data-sortable="true"><b style="color: white">PrintBill</b></th>
+                                <!-- <th data-sortable="true"><b style="color: white">Bill</b></th>     -->
+                              </tr>
+                            </thead>
+                
+                            <tbody style="background-color:white">
+                              <% let counter=1;%>
+                              <% deliveryBill.map((bill)=>{%>
+                              <tr style="color:black; font-size:medium">
+                                <td><%= counter++%></td>
+                                <td class="text-alert"><%= bill.clientId%></td>
+                                <% const un=bill.clientName.split('['); const username= un[1].split(']'); %>
+                                <td class="text-oflo"><%= un[0]%></td>
+                                <td class="text-oflo"><%= username[0]%></td>
+                                <td class="text-alert"><%= bill.total%></td>
+                                <td class="text-alert"><button type="button" class="btn btn-primary btn-sm"
+                                     onclick="handleclick('<%= bill._id%>')">BillDetails</button></td>
+                                <td class="text-alert"><button type="button" class="btn btn-primary btn-sm"
+                                     onclick="handleprint('<%= bill._id%>')">PrintBill</button></td>
+                              </tr>
+                              <% });%>
+                            
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+                <!-- row end -->
+                 <!-- /.row -->
+                 <div class="row">
+                        <center> <h1 class="box-title">Invoice Bill</h1></center>
+                    <div class="col-lg-12">
+                            <table
+                            id="clienttable"
+                            data-toggle="table"
+                            data-show-refresh="true"
+                            data-show-toggle="true"
+                            data-show-columns="true"
+                            data-search="true"
+                            data-select-item-name="toolbar1"
+                            data-pagination="true"
+                            data-sort-name="name"
+                            data-sort-order="desc"
+                            class="table-hover"
+                          >
+                            <thead class="thead-dark" style="background-color:black;">
+                              <tr>
+                                <th><b style="color: white">#</b></th>
+                                <th data-sortable="true"><b style="color: white">ClientId</b></th>
+                                <th data-sortable="true"><b style="color: white">Name</b></th>
+                                <th data-sortable="true"><b style="color: white">UserName</b></th>
+                                <th data-sortable="true"><b style="color: white">Total</b></th>
+                                <th data-sortable="true"><b style="color: white">Bill</b></th>
+                                <th data-sortable="true"><b style="color: white">PrintBill</b></th>
+                              </tr>
+                            </thead>
+                
+                            <tbody style="background-color:white">
+                                <% let counter1=1;%>
+                              <% invoiceBill.map((bill)=>{%>
+                              <tr style="color:black; font-size:medium">
+                                  <td><%= counter1++%></td>
+                                <td class="text-alert"><%= bill.clientId%></td>
+                                <% const un=bill.clientName.split('['); const username= un[1].split(']'); %>
+                                <td class="text-oflo"><%= un[0]%></td>
+                                <td class="text-oflo"><%= username[0]%></td>
+                                <td class="text-alert"><%= bill.total%></td>
+                                <td class="text-alert"><button class="btn btn-primary" onclick="handleclick1('<%= bill._id%>')">BillDetails</button></td>
+                                <td class="text-alert"><button type="button" class="btn btn-primary btn-sm"
+                                     onclick="handleprint1('<%= bill._id%>')">PrintBill</button></td>
+                              </tr>
+                              <% });%>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+                <!-- row end -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2019 &copy;<a href="https://nesl-it.com/"> <b>Nesl-it </b></a></footer>
+            <% include templates/billModal %>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <% include templates/scripts %>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="customjs/jwt-decode.min.js"></script>
+    <script src="customjs/authService.js"></script>
+    <script src="customjs/toast2.js"></script>
+    <script>
+       function handleclick(id){
+           const rows="";
+           try {
+            const jwt=getJwt();
+            if(jwt){
+              $.ajax({
+              global: false,
+              type: "get",
+              url: "/delivery_invoice/deliverytablerows/"+id,
+              // dataType: "json",
+              // data:stock,
+               beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                //  alert(result.rows[1].productname);
+                $("#deliveryTable > tbody").html("");
+                let counter=1;
+                for (const row of result.rows) {
+                    $("#deliveryTable tbody").append(`<tr style="color:black; font-size:medium">
+                        <td class="text-alert">${counter++}</td>
+                          <td class="text-alert">${row.quantity}</td>
+                          <td class="text-alert">${row.productname}</td>
+                          <td class="text-alert">${row.company}</td>
+                          <td class="text-alert">${row.unit}</td>
+                         </tr>`);
+                }
+                      
+              },//end of success
+              error: function(xhr, status, error) {
+                 alert(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+            }
+            else{
+              window.location.href="http://localhost:3000/login";
+            }
+            } // end of try
+            catch (error)
+             {
+                alert(""+error);
+             } 
+        $("#deliveryModal").modal('show');
+
+        }
+    </script>
+    <script>
+       function handleprint(id){
+           try {
+            const jwt=getJwt();
+            if(jwt){
+              $.ajax({
+              global: false,
+              type: "get",
+              url: "/delivery_invoice/deliverytablerows/"+id,
+              // dataType: "json",
+              // data:stock,
+               beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                const deliveryMainFormate=`<table border="1" width="640px" style="border-collapse: collapse">
+				<tr>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">${result.client.firstName+" "+result.client.lastName}</td>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">DC:  ${result.challanId}</td>
+				</tr>
+				<tr>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">${result.client.departmentName}</td>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">Date:  ${new Date(result.date).toLocaleDateString()}</td>
+				</tr>
+				<tr>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">${result.client.organization}</td>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">YourRef#</td>
+				</tr>
+				<tr>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">${result.client.location}</td>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">Dated: ${new Date(result.date).toLocaleDateString()}</td>
+				</tr>
+        </table>
+       `; 
+    const deliveryTopHead=`<h1 style="font-size:30px;margin-left:200px">DILIVERY CHALLAN</h1>
+              ${deliveryMainFormate}<br/><br/><br/>`;
+      const deliveryTablehead=`
+      <thead">
+        <tr>
+          <th scope="col" style="border-left: solid black 0.5px;border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:10px;padding-right:10px">S.NO</th>
+          <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:20px;padding-right:20px">Quantity</th>
+          <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:40px;padding-right:40px">Description</th>
+          <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:40px;padding-right:40px">Make</th>
+          <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px;border-right: solid black 0.5px; padding-left:30px;padding-right:30px">Unit</th>
+        </tr>
+      </thead>
+     `;
+     let deliveryTableRow='';
+     let counter=1;
+     for (const row of result.rows) {
+                   
+        deliveryTableRow=deliveryTableRow.concat(`
+        <tr>
+          <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:10px;padding-right:10px" scope="row">${counter++}</th>
+          <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:20px;padding-right:20px<td></td>
+          <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:20px;padding-right:20px<td>${row.quantity}</td>
+          <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:40px;padding-right:40px">${row.productname}</td>
+          <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:30px;padding-right:30px">${row.company}</td>
+          <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;border-right: solid black 0.5px;padding-left:40px;padding-right:40px">${row.unit}</td>
+        </tr>`);
+                }
+     
+        const DELIVERYTABLE=`<table class="table table-bordered">${deliveryTablehead}<tbody>${deliveryTableRow}</tbody></table>`;
+                var wme = window.open("", "", "height=700","width=700");
+                 wme.document.write(deliveryTopHead);
+                 wme.document.write(DELIVERYTABLE);
+                wme.document.write(`<br/><br/><h4>-----------------------------------</h4>Reciver signature:`);
+                wme.document.close();
+                wme.focus();
+                wme.print();
+                wme.close();
+                      
+              },//end of success
+              error: function(xhr, status, error) {
+                 alert(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+            }
+            else{
+              window.location.href="http://localhost:3000/login";
+            }
+            } // end of try
+            catch (error)
+             {
+                alert(""+error);
+             } 
+        }
+    </script>
+    <script>
+       function handleprint1(id){
+           try {
+            const jwt=getJwt();
+            if(jwt){
+              $.ajax({
+              global: false,
+              type: "get",
+              url: "/delivery_invoice/invoicetablerows/"+id,
+              // dataType: "json",
+              // data:stock,
+               beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                const MainFormate=`<table border="1" width="640px" style="border-collapse: collapse">
+				<tr>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">${result.client.firstName+" "+result.client.lastName}</td>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">Invoice:  </td>
+				</tr>
+				<tr>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">${result.client.departmentName}</td>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">Date:  ${new Date(result.date).toLocaleDateString()}</td>
+				</tr>
+				<tr>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">${result.client.organization}</td>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">YourRef#</td>
+				</tr>
+				<tr>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">${result.client.location}</td>
+				  <td style="font: 17px Calibri !important; text-align: left;border: 1px solid black;">Dated: ${new Date(result.date).toLocaleDateString()}</td>
+				</tr>
+        </table>
+       `; 
+       const topHead=`<h1 style="font-size:30px;margin-left:200px">SALES TEX INVOICE</h1>
+                  ${MainFormate}<br/><br/><br/>`;
+          const tablehead=`
+          <thead">
+            <tr ">
+              <th scope="col" style="border-left: solid black 0.5px;border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:10px;padding-right:10px">S.NO</th>
+              <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:20px;padding-right:20px">Quantity</th>
+              <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:70px;padding-right:70px">Description</th>
+              <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:20px;padding-right:20px">Make</th>
+              <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px; padding-left:30px;padding-right:30px">Price</th>
+              <th scope="col" style="border-top: solid black 0.5px;border-bottom: solid black 0.5px;border-right: solid black 0.5px; padding-left:30px;padding-right:30px">TotalPrice</th>
+            </tr>
+          </thead>
+         `;
+
+     let tableRow='';
+     let counter=1;
+     for (const row of result.rows) {
+                   
+        tableRow=tableRow.concat(`
+            <tr">
+              <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:10px;padding-right:10px" scope="row">${counter++}</th>
+              <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:20px;padding-right:20px<td></td>
+              <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:20px;padding-right:20px<td>${row.quantity}</td>
+              <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:70px;padding-right:70px">${row.productname}</td>
+              <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:30px;padding-right:30px">${row.company}</td>
+              <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;padding-left:30px;padding-right:30px">${row.price}</td>
+              <td style="border-left: solid black 0.5px; border-bottom: solid black 0.5px;border-right: solid black 0.5px;padding-left:30px;padding-right:30px">${row.productTotal}</td>
+            </tr>`);
+                }
+     
+                const TABLE=`<div style="width:auto">
+                  <table
+          class="table table-bordered"
+          
+        >${tablehead}<tbody>${tableRow}</tbody></table>
+        <br/><span style="margin-left:505px">TOTAL:</span> <span style="margin-left:60px"></span>
+        <br/><span style="margin-left:425px">Add Sale Tax@17%:</span> <span style="margin-left:60px">  </span>
+        <br/><div style="border: 1px solid black; width:auto"><span style="margin-left:505px">TOTAL:</span> <span style="margin-left:60px"></span></div>
+        <br/><br/><h4>-----------------------------------</h4>Reciver signature:          
+        </div>`;
+                var wme = window.open("", "", "height=700","width=700");
+                wme.document.write(topHead);
+                wme.document.write(TABLE);
+                wme.document.close();
+                wme.focus();
+                wme.print();
+                wme.close();
+                      
+              },//end of success
+              error: function(xhr, status, error) {
+                 alert(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+            }
+            else{
+              window.location.href="http://localhost:3000/login";
+            }
+            } // end of try
+            catch (error)
+             {
+                alert(""+error);
+             } 
+        }
+    </script>
+    <script>
+    function handleclick1(id){
+        
+        try {
+           const jwt=getJwt();
+           if(jwt){
+            $.ajax({
+              global: false,
+              type: "get",
+              url: "/delivery_invoice/invoicetablerows/"+id,
+              // dataType: "json",
+              // data:stock,
+               beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                $("#invoiceTable > tbody").html("");
+                let counter=1;
+                for (const row of result.rows) {
+                    $("#invoiceTable tbody").append(`<tr style="color:black; font-size:medium">
+                        <td class="text-alert">${counter++}</td>
+                          <td class="text-alert">${row.quantity}</td>
+                          <td class="text-alert">${row.productname}</td>
+                          <td class="text-alert">${row.company}</td>
+                          <td class="text-alert">${row.price}</td>
+                          <td class="text-alert">${row.productTotal}</td>
+                         </tr>`);
+                }
+                      
+              },//end of success
+              error: function(xhr, status, error) {
+                 alert(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+           }
+           else{
+            window.location.href="http://localhost:3000/login";
+           }
+            } // end of try
+            catch (error)
+             {
+                alert(""+error);
+             } 
+        // $("#invoiceTable tbody").append( 
+        //                  ` <tr>
+        //                   <td>quantity</td>
+        //                   <td>productname</td>
+        //                   <td>company</td>
+        //                   <td>price</td>
+        //                   <td>productTotal</td>
+        //                  </tr>`
+        //                  )
+        $('#invoiceModal').modal('show');
+
+    }
+    </script>
+    <script>
+            $(document).ready(()=>{
+                 user = getCurrentUser();
+            if (user) {
+              $("#user").text(user.fullname);
+              $("#logout").text("logout");
+              $("#logout").click(()=>{
+                logoutUser();
+                window.location.href="http://localhost:3000/login";
+              })
+            } else {
+              window.location.href="http://localhost:3000/login";
+            }
+            })
+          </script>
+</body>
+
+</html>

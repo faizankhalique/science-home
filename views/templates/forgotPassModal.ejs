@@ -1,0 +1,68 @@
+<!-- <button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#forgotpassword"
+  data-whatever="@mdo"
+>
+  Open modal for @mdo
+</button> -->
+
+<div
+  class="modal fade"
+  id="forgotpassword"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <strong>Forgot-Password</strong>
+        </h5>
+        <button
+          style="margin-left: 150px"
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="forgotPassForm">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label"
+              >Enter Email</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              placeholder="someone@example.com"
+              id="forgotEmail"
+              title="someone@example.com"
+              pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+              required
+            />
+          </div>
+          <div style="margin-left: 330px">
+            <button type="reset" class="btn btn-danger">
+              Clear
+            </button>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </form>
+        <div id="toast2" style="margin-top: 30px"></div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div> -->
+    </div>
+  </div>
+</div>

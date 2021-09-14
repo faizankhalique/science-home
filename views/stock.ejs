@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title><%= title %> </title>
+    <% include templates/headlinks %>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <!-- <link rel="stylesheet" href="css/mycustom.css" /> -->
+    <link rel="stylesheet" href="customcss/toast2.css">
+    <style type="text/css">
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+          background-color: rgb(0, 195, 255);
+       }
+    </style>
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <% include templates/topnavbar %>
+        <!-- End Top Navigation -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <% include templates/leftsidebar %>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title" style="font-size: 15px"><a href="#">Stock</a></h4> </div>
+                    <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                        </ol>
+                    </div> -->
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">
+                            Add Stock
+                          </button>
+                          <% include templates/stockModal %>
+                          <center><h1 class="box-title">Stock Table</h1></center>
+                          <table
+                          id="stocktable"
+                          data-toggle="table"
+                          data-show-refresh="true"
+                          data-show-toggle="true"
+                          data-show-columns="true"
+                          data-search="true"
+                          data-select-item-name="toolbar1"
+                          data-pagination="true"
+                          data-sort-name="name"
+                          data-sort-order="desc"
+                          class="table-hover"
+                        >
+                          <thead class="thead-dark" style="background-color:black">
+                            <tr>
+                              <th><b style="color: white"></b></th>
+                              <th><b style="color: white">#</b></th>
+                              <th data-sortable="true"><b style="color: white">Name</b></th>
+                              <th data-sortable="true"><b style="color: white">Brand</b></th>
+                              <th data-sortable="true"><b style="color: white">Quantity</b></th>
+                              <th data-sortable="true"><b style="color: white">Expiry Date</b></th>
+                              <th data-sortable="true"><b style="color: white">VendorName</b></th>
+                              <th data-sortable="true"><b style="color: white">Type</b></th>
+                              <th data-sortable="true"><b style="color: white">Purchase Price</b></th>
+                              <th data-sortable="true"><b style="color: white">Unit</b></th>
+                              <th data-sortable="true"><b style="color: white">CatNo</b></th>
+                              <th data-sortable="true"><b style="color: white">CaseNo</b></th>
+                              <th></th>
+                              <th></th>
+                              
+                            </tr>
+                          </thead>
+              
+                          <tbody style="background-color:white;" >
+                              <%let counter=1;%>
+                            <% products.map((product)=>{%>
+                            <tr style="color:black; font-size:medium;">
+                              <td class="text-oflo"><p style="visibility: hidden; width: 0px" class="ID"><%= product._id%></p></td>
+                                 <td><%= counter++;%></td>
+                                <td class="text-oflo"><%= product.productName%></td>
+                                <td class="text-oflo"><%= product.brand%></td>
+                                <td class="text-oflo"><%= product.quantity%></td>
+                                <td class="text-oflo"><%= product.expiryDate%></td>
+                                <td class="text-oflo"><%= product.vendorName%></td>
+                                <td class="text-oflo"><%= product.type%></td>
+                                <td class="text-oflo"><%= product.purchasePrice%></td>
+                                <td class="text-oflo"><%= product.unit%></td>
+                                <td class="text-oflo"><%= product.catNumber%></td>
+                                <td class="text-oflo"><%= product.caseNumber%></td>
+                                <td><button class="btn btn-primary btn-sm" onclick="handleUpdate('<%= product._id%>')">Update</button></td>
+                                <td><button class="btn btn-danger btn-sm" >Delete</button></td>
+
+                            </tr>
+                                         <% });%>
+                           
+                          </tbody>
+                        </table>
+                               
+                            
+                    </div>
+                </div>
+                <!-- row end -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2019 &copy;<a href="https://nesl-it.com/"> <b>Nesl-it </b> </a></footer>
+            <div id="toast1" style="margin-top: 160px"></div>
+            
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <% include templates/scripts %>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="customjs/jwt-decode.min.js"></script>
+    <script src="customjs/authService.js"></script>
+    <script src="customjs/toast2.js"></script>
+    <script> 
+        $(document).ready(function(){
+            try {
+                const jwt=getJwt();
+                if(jwt){//check JWT
+                    $("#stockForm").submit(function() {
+                     const stock={
+                      brand:$("#brand").val(),
+                      productName:$("#productName").val(),
+                      type:$("#type").val(),
+                      quantity:$("#quantity").val(),
+                      unit:$("#unit").val(),
+                      // unit:$("#unit").val()+" "+$("#unitSign").val(),
+                      purchasePrice:$("#purchasePrice").val(),
+                      expiryDate:$("#expiryDate").val(),
+                      vendorName:$("#vendorName").val(),
+                      catNumber:$("#catNumber").val(),
+                      caseNumber: $("#caseNumber").val()
+                     };
+            $.ajax({
+              global: false,
+              type: "post",
+              url: "/stock",
+              dataType: "json",
+              data:stock,
+              beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                showToast2("Product Add successfully");
+              //  setTimeout(()=>{
+              //   window.location.href="http://localhost:3000/stock";
+              //  },1000);
+              },//end of success
+              error: function(xhr, status, error) {
+                 showToast2(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+          
+          return false;
+        });//end of submit
+      }//end of check JWT
+      else{
+        window.location.href="http://localhost:3000/login";
+      }      
+            } // end of try
+            catch (error)
+             {
+                showToast2(""+error);
+             }
+            
+        });
+      </script>
+      <script>
+     
+     $("#stocktable tbody").on("click",".btn-danger",function(){     
+            // $(this).closest('tr').remove();
+            var currow=$(this).closest('tr');
+            var id=currow.find('td:eq(0)').text();
+            var productName=currow.find('td:eq(2)').text();
+            const conf=confirm(`Do you want to Delete ${productName}?`)
+            if(conf===true){
+              try {
+            const jwt=getJwt();
+            if(jwt){
+              $.ajax({
+              global: false,
+              type: "delete",
+              url: "/stock/"+id,
+              beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+              currow.closest('tr').remove();
+              showToast1(`${result.m}`);    
+              },//end of success
+              error: function(xhr, status, error) {
+                // alert(`Error: ${xhr.responseText}`)
+                 showToast1(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+            }//end of jwt
+            else{
+              window.location.href="http://localhost:3000/login";
+            }
+            } // end of try
+            catch (error)
+             {
+                showToast(""+error);
+             } 
+            }
+           
+              });
+      </script>
+      <script>
+        function handleUpdate(id){
+          //  const id=id.trim();
+          //  alert(id)
+           $("#updateStockModal").modal('show');
+           try {
+           const jwt =getJwt();
+           if(jwt){
+            $.ajax({
+              global: false,
+              type: "get",
+              url: "/stock/"+id,
+              // dataType: "json",
+              // data:stock,
+               beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                //  alert(result.stock.productName);
+                    //  let unit=result.stock.unit.split(' ')
+                      $("#updateBrand").val(result.stock.brand),
+                      $("#updateProductName").val(result.stock.productName),
+                      $("#updateType").val(result.stock.type),
+                      // $("#updateQuantity").val(result.stock.quantity),
+                      // $("#updateUnit").val(unit[0]),
+                      // $("#updateUnitSign").val(unit[1]),
+                      $("#updateUnit").val(result.stock.unit),
+                      $("#updatePurchasePrice").val(result.stock.purchasePrice),
+                      $("#updateExpiryDate").val(result.stock.expiryDate),
+                      $("#updateVendorName").val(result.stock.vendorName),
+                      $("#updateCatNumber").val(result.stock.catNumber)
+                      $("#updateCaseNumber").val(result.stock.caseNumber)
+                      $("#stockId").val(result.stock._id);
+              },//end of success
+              error: function(xhr, status, error) {
+                 alert(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+           }//end of jwt
+           else{
+            window.location.href="http://localhost:3000/login";
+           }
+            
+            } // end of try
+            catch (error)
+             {
+                alert(""+error);
+             } 
+              
+          
+        }
+      </script>
+        <script>
+          $(document).ready(()=>{
+              try {
+                const jwt=getJwt();
+                if(jwt){//check JWT
+                    $("#updateStockForm").submit(function() {
+                      const stock={
+                        brand:$("#updateBrand").val(),
+                        productName:$("#updateProductName").val(),
+                        type:$("#updateType").val(),
+                        quantity:$("#updateQuantity").val(),
+                        // unit:$("#updateUnit").val()+" "+$("#updateUnitSign").val(),
+                        unit:$("#updateUnit").val(),
+                        purchasePrice:$("#updatePurchasePrice").val(),
+                        expiryDate:$("#updateExpiryDate").val(),
+                        vendorName:$("#updateVendorName").val(),
+                        catNumber:$("#updateCatNumber").val(),
+                        caseNumber:$("#updateCaseNumber").val()
+                      };
+                      const id=$("#stockId").val();
+            $.ajax({
+              global: false,
+              type: "put",
+              url: "/stock/"+id,
+              dataType: "json",
+              data:stock,
+             beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+              success: function(result) {
+                // alert("Update Stock successfully");
+                showToast("Product Update successfully");
+               setTimeout(()=>{
+                window.location.href="http://localhost:3000/stock";
+               },500);
+              },//end of success
+              error: function(xhr, status, error) {
+                 showToast(`${xhr.responseText}`);
+                //  status: ${xhr.status} ${xhr.statusText}
+                 }//error
+            });//end of ajax
+          
+          return false;
+        });//end of submit
+       }//end of check JWT
+       else{
+        window.location.href="http://localhost:3000/login";
+      }      
+            } // end of try
+            catch (error)
+             {
+                alert(""+error);
+             }
+            });
+            </script>
+            <!-- search by case number -->
+   <script>
+              $("#updateCaseNumber").change(()=>{
+                const caseNumber=$('#updateCaseNumber').val();
+                // const data={caseNumber:caseNumber};
+                try {
+                  const jwt=getJwt();
+                  if(jwt){
+                    $.ajax({
+                    global: false,
+                    type: "get",
+                    url: "/stock/casenumber/"+caseNumber,
+                    dataType:"json",
+                      // data:data,
+                     beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+                    success: function(result) {
+                      //  alert(result.stock.productName);
+                            $("#updateBrand").val(result.stock.brand),
+                            $("#updateProductName").val(result.stock.productName),
+                            $("#updateType").val(result.stock.type),
+                            $("#updateQuantity").val(result.stock.quantity),
+                            $("#updateUnit").val(result.stock.unit),
+                            $("#updatePurchasePrice").val(result.stock.purchasePrice),
+                            $("#updateExpiryDate").val(result.stock.expiryDate),
+                            $("#updateVendorName").val(result.stock.vendorName),
+                            $("#updateCatNumber").val(result.stock.catNumber)
+                            // $("#updateCaseNumber").val(result.stock.caseNumber)
+                            $("#stockId").val(result.stock._id);
+                    },//end of success
+                    error: function(xhr, status, error) {
+                      showToast(`${xhr.responseText}`);
+                         
+                       
+                      //  status: ${xhr.status} ${xhr.statusText}
+                       }//error
+                  });//end of ajax
+                  }else{
+                    window.location.href="http://localhost:3000/login";
+                  }
+                } catch (error) {
+                  alert(error+"");
+                }
+              })
+             
+     </script>
+        
+    <script>
+            $(document).ready(()=>{
+                const user = getCurrentUser();
+            if (user) {
+              $("#user").text(user.fullname);
+              $("#logout").text("logout");
+              $("#logout").click(()=>{
+                logoutUser();
+                window.location.href="http://localhost:3000/login";
+              })
+            } else {
+              window.location.href="http://localhost:3000/login";
+            }
+            })
+          </script>
+</body>
+
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title><%= title %> </title>
+    <% include templates/headlinks %>
+    <link rel="stylesheet" href="customcss/toast2.css">
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <% include templates/topnavbar %>
+        <!-- End Top Navigation -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <% include templates/leftsidebar %>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h4 class="page-title" style="font-size: 15px"><a href="#">Profile</a></h4> </div>
+                    <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                        </ol>
+                    </div> -->
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <div class="white-box">
+                            <div class="user-bg"> <img width="100%" alt="user" src="">
+                                <div class="overlay-box">
+                                    <div class="user-content">
+                                        <a href="javascript:void(0)"><img src="plugins/images/users/male-icon.jpg" class="thumb-lg img-circle" alt="img"></a>
+                                        <h4 class="text-white" id="UserName"></h4>
+                                        <h5 class="text-white" id="UserEmail"></h5> </div>
+                                </div>
+                            </div>
+                            <div class="user-btm-box">
+                                <!-- <div>
+                                    <i class="text-purple"><i class="ti-facebook"></i></p>
+                                    <b>Generated Bills : 258</b> </div><br>
+                                <div style="margin-top:1px" >
+                                    <i class="text-blue"><i class="ti-twitter"></i></p>
+                                    <b>Client Added     : 125</b> </div><br>
+                                <div style="margin-top:1px">
+                                    <i class="text-danger"><i class="ti-dribbble"></i></p>
+                                    <b>Stock Added       : 556</b> </div><br> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <div class="white-box">
+                            <form  id="updateuser" class="form-horizontal form-material">
+                                <div class="form-group">
+                                    <label class="col-md-12">Full Name</label>
+                                    <div class="col-md-12">
+                                        <input type="text"
+                                        name="fillname"
+                                        id="fullname" placeholder="" class="form-control form-control-line" title="FullName should be alphabet characters" pattern="^[a-z A-Z]*$" required> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-email" class="col-md-12">Email</label>
+                                    <div class="col-md-12">
+                                        <input type="email" name="email" id="email" placeholder="" class="form-control form-control-line" title="someone@example.com" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required > </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Password</label>
+                                    <div class="col-md-12">
+                                        <input type="password"
+                                        name="password"
+                                        id="password"  class="form-control form-control-line" title="password should be greater or equal to 6 characters"  pattern=".{6,}" required> </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-md-12">Confirm Password</label>
+                                        <div class="col-md-12">
+                                            <input type="password"
+                                            name="confirmpassword"
+                                            id="confirmpassword"  class="form-control form-control-line" title="confirmpassword should be greater or equal to 6 characters"  pattern=".{6,}" required> </div>
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="col-md-12">Age</label>
+                                            <div class="col-md-12">
+                                                <input type="text" name="age" id="age" placeholder=""  class="form-control form-control-line" pattern="^[1-9]\d*$"  title="please Enter Numeric character without start with 0" required> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">Gender</label>
+                                            <div style="padding:3px" class="form-check form-check-inline col-md-12">
+                                                    <label for="my-input" class="form-check-label" style="margin-left: 12px;">Male</label>
+                                                    <input id="gender" class="form-check-input" type="radio" name="gender" value="male" checked>
+                                                    <label style="margin-left:3px" for="my-input" class="form-check-label">Female</label>
+                                                    <input id="gender" class="form-check-input" type="radio" name="gender" value="female">
+                                                    <hr style="margin-left: 10px; margin-right: 10px; margin-bottom: 0px">
+                                                  </div>
+                                        </div>
+                                <!-- <label for="">Gender</label>
+                                <div style="padding:3px" class="form-check form-check-inline">
+                                    <label for="my-input" class="form-check-label">Male</label>
+                                    <input id="gender" class="form-check-input" type="radio" name="gender" value="male" checked>
+                                    <label style="margin-left:3px" for="my-input" class="form-check-label">Female</label>
+                                    <input id="gender" class="form-check-input" type="radio" name="gender" value="female">
+                                  </div> -->
+                                       
+                                            <div class="form-group" >
+                                                    <label class="col-md-12">Address</label>
+                                                    <div class="col-md-12">
+                                                        <input type="text" name="address" id="address" placeholder="" class="form-control form-control-line" required> </div>
+                                                </div>
+                                                
+                                <div class="form-group">
+                                    <label class="col-md-12">Phone No</label>
+                                    <div class="col-md-12">
+                                        <input type="text" name="phoneno" id="phoneno" placeholder="" class="form-control form-control-line" title="0300-5462969"  pattern="03[0-9]{2}-[0-9]{7}" required> </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-success" type="submit">Update Profile</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- row end -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+            <div id="toast" style="margin-top: 60px"></div> 
+            <footer class="footer text-center"> 2019 &copy;<a href="https://nesl-it.com/"> <b>Nesl-it </b> </a></footer>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <% include templates/scripts %>
+    <script src="customjs/jwt-decode.min.js"></script>
+    <script src="customjs/authService.js"></script>
+    <script src="customjs/toast2.js"></script>
+    <script>
+        // const key="userid";
+        // const userId = localStorage.getItem(key);
+        $(document).ready(function(){
+            try {
+            const user = getCurrentUser();
+            const JWT=getJwt();
+            if(user){
+                $.ajax({
+                  global: false,
+                  type: "get",
+                  url: "/signup/"+user._id,
+                  success: function(result) {
+              $("#UserName").text(result.user.fullname) ;
+              $("#UserEmail").text(result.user.email);  
+            //   <--------------------------------->   
+              $("#fullname").val(result.user.fullname);
+               $("#email").val(result.user.email);
+            //    $("#dob").val(result.user.dob);
+               $("#gender").val(result.user.gender);
+               $("#address").val(result.user.address);
+               $("#phoneno").val(result.user.phoneno);
+               $("#age").val(result.user.age);
+            //    $("#password").val(result.user.password);
+            //    $("#confirmpassword").val(result.user.confirmpassword);
+                  },
+                  beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', JWT);},
+                  error: function(xhr, status, error) {
+                    showToast(`Error: ${xhr.responseText}`);
+            //  status: ${xhr.status} ${xhr.statusText}
+            }
+                });  
+            }
+            else{
+                window.location.href="http://localhost:3000/login";
+            }
+            
+            } catch (error) {
+                showToast(""+error);
+            }
+        });
+        // <--------------->
+            $(document).ready(function(){
+                try {
+                    const jwt=getJwt();
+                    const user = getCurrentUser();
+                    if(jwt){
+                $("#updateuser").submit(function() {
+              //event.preventDefault();
+              const confirmpassword = $("#confirmpassword").val();
+              const password=$("#password").val();
+               const data={
+                    fullname: $("#fullname").val(),
+                    email: $("#email").val(),
+                    gender:  $("#gender").val(),
+                    address:  $("#address").val(),
+                     age: $("#age").val(),
+                    phoneno:  $("#phoneno").val(),
+                    password: $("#password").val(),
+                    // confirmpassword: confirmpassword,
+                    isAdmin: true
+                  }
+              if (password == confirmpassword) {
+                $.ajax({
+                  global: false,
+                  type: "put",
+                  url: "/signup/"+user._id,
+                  dataType: "json",
+                  data:data,
+                  beforeSend: function(xhr){xhr.setRequestHeader('x-auth-token', jwt);},
+                  success: function(result) {
+                    showToast("Profile Update successfully");
+                   setTimeout(()=>{
+                    window.location.href="http://localhost:3000/profile";
+                   },600);
+                  },
+                  error: function(xhr, status, error) {
+                    showToast(`Error: ${xhr.responseText}`);
+                    // status: ${xhr.status} ${xhr.statusText}
+            }
+                });
+              } else 
+                {
+                   if (password !== confirmpassword) 
+                    {
+                        showToast("password and confirmpassword should be same");
+                    } 
+                 }
+              return false;
+            });
+                    }//end of if ckeck jwt
+                    else{
+                window.location.href="http://localhost:3000/login";
+            }
+                    
+                } catch (error) {
+                    showToast(""+error);
+                }
+                
+            })
+          </script>
+          <script>
+                $(document).ready(()=>{
+                    const user = getCurrentUser();
+                if (user) {
+                  $("#user").text(user.fullname);
+                  $("#logout").text("logout");
+                  $("#logout").click(()=>{
+                    logoutUser();
+                    window.location.href="http://localhost:3000/login";
+                  })
+                } else {
+                    window.location.href="http://localhost:3000/login";
+                }
+                })
+              </script>
+</body>
+
+</html>
